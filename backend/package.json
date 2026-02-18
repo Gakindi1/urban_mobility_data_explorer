@@ -1,0 +1,26 @@
+{
+  "name": "urban-mobility-backend",
+  "version": "1.0.0",
+  "description": "Backend API for NYC Taxi Data Analysis",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js",
+    "load-zones": "node scripts/loadZones.js",
+    "process-trips": "node scripts/processTrips.js",
+    "db:push": "prisma db push",
+    "db:studio": "prisma studio"
+  },
+  "dependencies": {
+    "@fastify/cors": "^9.0.1",
+    "@prisma/client": "^5.22.0",
+    "fastify": "^4.28.1",
+    "csv-parser": "^3.0.0",
+    "shapefile": "^0.6.6",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "prisma": "^5.22.0"
+  }
+}
