@@ -189,7 +189,7 @@ function renderOverview(data) {
         formatNumber(data.total_trips);
     
     document.getElementById('stat-avg-fare').textContent = 
-        $${parseFloat(data.average_fare).toFixed(2)};
+        `$${parseFloat(data.average_fare).toFixed(2)}`;
     
     document.getElementById('stat-avg-distance').textContent = 
         `${parseFloat(data.average_distance).toFixed(1)} mi`;
