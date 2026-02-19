@@ -228,8 +228,8 @@ function renderChartsHour(data) {
                 {
                     label: 'Trip Count',
                     data: tripCounts,
-                    borderColor: '#FFD700',
-                    backgroundColor: 'rgba(255, 215, 0, 0.1)',
+                    borderColor: '#0066cc',
+                    backgroundColor: 'rgba(0, 102, 204, 0.1)',
                     borderWidth: 2,
                     tension: 0.4,
                     fill: true,
@@ -238,8 +238,8 @@ function renderChartsHour(data) {
                 {
                     label: 'Average Fare ($)',
                     data: avgFares,
-                    borderColor: '#79c0ff',
-                    backgroundColor: 'rgba(121, 192, 255, 0.1)',
+                    borderColor: '#10b981',
+                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
                     borderWidth: 2,
                     tension: 0.4,
                     fill: false,
@@ -253,25 +253,25 @@ function renderChartsHour(data) {
             interaction: { intersect: false, mode: 'index' },
             plugins: {
                 legend: {
-                    labels: { color: '#e6edf3', padding: 15 }
+                    labels: { color: '#1f2937', padding: 15 }
                 }
             },
             scales: {
                 x: {
-                    grid: { color: 'rgba(48, 54, 61, 0.5)' },
-                    ticks: { color: '#8b949e' }
+                    grid: { color: 'rgba(229, 231, 235, 0.5)' },
+                    ticks: { color: '#6b7280' }
                 },
                 y: {
                     position: 'left',
-                    grid: { color: 'rgba(48, 54, 61, 0.5)' },
-                    ticks: { color: '#8b949e' },
-                    title: { display: true, text: 'Trip Count', color: '#e6edf3' }
+                    grid: { color: 'rgba(229, 231, 235, 0.5)' },
+                    ticks: { color: '#6b7280' },
+                    title: { display: true, text: 'Trip Count', color: '#1f2937' }
                 },
                 y1: {
                     position: 'right',
                     grid: { display: false },
-                    ticks: { color: '#79c0ff' },
-                    title: { display: true, text: 'Avg Fare ($)', color: '#79c0ff' }
+                    ticks: { color: '#10b981' },
+                    title: { display: true, text: 'Avg Fare ($)', color: '#10b981' }
                 }
             }
         }
@@ -294,7 +294,7 @@ function renderChartBorough(data) {
     const labels = data.map(item => item.borough);
     const tripCounts = data.map(item => item.trip_count);
 
-    const colors = ['#FFD700', '#79c0ff', '#3fb950', '#f85149', '#d29922', '#a371f7'];
+    const colors = ['#0066cc', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#06b6d4'];
 
     charts.boroughChart = new Chart(ctx, {
         type: 'bar',
@@ -304,7 +304,7 @@ function renderChartBorough(data) {
                 label: 'Number of Trips',
                 data: tripCounts,
                 backgroundColor: colors.slice(0, labels.length),
-                borderColor: '#FFD700',
+                borderColor: '#0066cc',
                 borderWidth: 2
             }]
         },
@@ -314,17 +314,17 @@ function renderChartBorough(data) {
             maintainAspectRatio: false,
             plugins: {
                 legend: {
-                    labels: { color: '#e6edf3' }
+                    labels: { color: '#1f2937' }
                 }
             },
             scales: {
                 x: {
-                    grid: { color: 'rgba(48, 54, 61, 0.5)' },
-                    ticks: { color: '#8b949e' }
+                    grid: { color: 'rgba(229, 231, 235, 0.5)' },
+                    ticks: { color: '#6b7280' }
                 },
                 y: {
                     grid: { display: false },
-                    ticks: { color: '#8b949e' }
+                    ticks: { color: '#6b7280' }
                 }
             }
         }
@@ -347,7 +347,7 @@ function renderChartFareDistribution(data) {
     const labels = data.map(item => item.fare_bucket);
     const counts = data.map(item => item.trip_count);
 
-    const colors = ['#FFD700', '#FFF44F', '#79c0ff', '#3fb950', '#f85149', '#d29922', '#a371f7'];
+    const colors = ['#0066cc', '#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#06b6d4'];
 
     charts.fareChart = new Chart(ctx, {
         type: 'doughnut',
@@ -356,7 +356,7 @@ function renderChartFareDistribution(data) {
             datasets: [{
                 data: counts,
                 backgroundColor: colors.slice(0, labels.length),
-                borderColor: '#0d1117',
+                borderColor: '#ffffff',
                 borderWidth: 2
             }]
         },
@@ -365,7 +365,7 @@ function renderChartFareDistribution(data) {
             maintainAspectRatio: false,
             plugins: {
                 legend: {
-                    labels: { color: '#e6edf3', padding: 15 }
+                    labels: { color: '#1f2937', padding: 15 }
                 }
             }
         }
@@ -397,8 +397,8 @@ function renderChartSpeed(data) {
                 {
                     label: 'Average Speed (mph)',
                     data: avgSpeeds,
-                    borderColor: '#FFD700',
-                    backgroundColor: 'rgba(255, 215, 0, 0.1)',
+                    borderColor: '#0066cc',
+                    backgroundColor: 'rgba(0, 102, 204, 0.1)',
                     borderWidth: 2,
                     tension: 0.4,
                     fill: true
@@ -406,8 +406,8 @@ function renderChartSpeed(data) {
                 {
                     label: 'Max Speed (mph)',
                     data: maxSpeeds,
-                    borderColor: '#f85149',
-                    backgroundColor: 'rgba(248, 81, 73, 0.1)',
+                    borderColor: '#ef4444',
+                    backgroundColor: 'rgba(239, 68, 68, 0.1)',
                     borderWidth: 2,
                     tension: 0.4,
                     fill: false,
@@ -420,18 +420,18 @@ function renderChartSpeed(data) {
             maintainAspectRatio: false,
             plugins: {
                 legend: {
-                    labels: { color: '#e6edf3' }
+                    labels: { color: '#1f2937' }
                 }
             },
             scales: {
                 x: {
-                    grid: { color: 'rgba(48, 54, 61, 0.5)' },
-                    ticks: { color: '#8b949e' }
+                    grid: { color: 'rgba(229, 231, 235, 0.5)' },
+                    ticks: { color: '#6b7280' }
                 },
                 y: {
-                    grid: { color: 'rgba(48, 54, 61, 0.5)' },
-                    ticks: { color: '#8b949e' },
-                    title: { display: true, text: 'Speed (mph)', color: '#e6edf3' }
+                    grid: { color: 'rgba(229, 231, 235, 0.5)' },
+                    ticks: { color: '#6b7280' },
+                    title: { display: true, text: 'Speed (mph)', color: '#1f2937' }
                 }
             }
         }
@@ -454,7 +454,7 @@ function renderChartPaymentTypes(data) {
     const labels = data.map(item => item.payment_type);
     const counts = data.map(item => item.trip_count);
 
-    const colors = ['#3fb950', '#79c0ff', '#d29922', '#f85149', '#a371f7'];
+    const colors = ['#10b981', '#3b82f6', '#f59e0b', '#ef4444', '#8b5cf6'];
 
     charts.paymentChart = new Chart(ctx, {
         type: 'bar',
@@ -464,7 +464,7 @@ function renderChartPaymentTypes(data) {
                 label: 'Number of Trips',
                 data: counts,
                 backgroundColor: colors.slice(0, labels.length),
-                borderColor: '#FFD700',
+                borderColor: '#0066cc',
                 borderWidth: 2
             }]
         },
@@ -474,17 +474,17 @@ function renderChartPaymentTypes(data) {
             indexAxis: 'x',
             plugins: {
                 legend: {
-                    labels: { color: '#e6edf3' }
+                    labels: { color: '#1f2937' }
                 }
             },
             scales: {
                 x: {
                     grid: { display: false },
-                    ticks: { color: '#8b949e' }
+                    ticks: { color: '#6b7280' }
                 },
                 y: {
-                    grid: { color: 'rgba(48, 54, 61, 0.5)' },
-                    ticks: { color: '#8b949e' }
+                    grid: { color: 'rgba(229, 231, 235, 0.5)' },
+                    ticks: { color: '#6b7280' }
                 }
             }
         }

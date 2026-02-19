@@ -15,7 +15,7 @@ from pyproj import Transformer
 
 # Add parent directory to path for algorithm imports
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from algorithms.top_k_zones import get_top_k_zones
+from algorithm.top_k_zones import get_top_k_zones
 
 app = Flask(__name__)
 CORS(app)
