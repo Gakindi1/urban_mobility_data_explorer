@@ -114,16 +114,16 @@ function attachEventListeners() {
 async function fetchData(endpoint, params = {}) {
     try {
         const queryParams = new URLSearchParams(params);
-        const url = ${API_BASE_URL}${endpoint}${queryParams.toString() ? '?' + queryParams.toString() : ''};
+        const url = `${API_BASE_URL}${endpoint}${queryParams.toString() ? '?' + queryParams.toString() : ''}`;
         
         const response = await fetch(url);
         if (!response.ok) {
-            throw new Error(HTTP ${response.status}: ${response.statusText});
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
         }
         
         return await response.json();
     } catch (error) {
-        console.error([API] Error fetching ${endpoint}:, error);
+        console.error(`[API] Error fetching ${endpoint}:`, error);
         throw error;
     }
 }
@@ -169,7 +169,7 @@ function updateDataStatus(status) {
     };
 
     statusBadge.textContent = statusMap[status] || status;
-    statusBadge.className = status-badge ${status === 'ready' ? 'ready' : ''};
+    statusBadge.className = `status-badge ${status === 'ready' ? 'ready' : ''}`;
 }
 
 // ========================================================================
@@ -192,7 +192,7 @@ function renderOverview(data) {
         $${parseFloat(data.average_fare).toFixed(2)};
     
     document.getElementById('stat-avg-distance').textContent = 
-        ${parseFloat(data.average_distance).toFixed(1)} mi;
+        `${parseFloat(data.average_distance).toFixed(1)} mi`;
     
     document.getElementById('stat-unique-zones').textContent = 
         data.unique_zones;
@@ -216,7 +216,7 @@ function renderChartsHour(data) {
     // Destroy previous chart if exists
     if (charts.hourChart) charts.hourChart.destroy();
 
-    const labels = data.map(item => ${item.hour}:00);
+    const labels = data.map(item => `${item.hour}:00`);
     const tripCounts = data.map(item => item.trip_count);
     const avgFares = data.map(item => item.average_fare);
 
@@ -385,7 +385,7 @@ function renderChartSpeed(data) {
 
     if (charts.speedChart) charts.speedChart.destroy();
 
-    const labels = data.map(item => ${item.hour}:00);
+    const labels = data.map(item => `${item.hour}:00`);
     const avgSpeeds = data.map(item => item.average_speed);
     const maxSpeeds = data.map(item => item.max_speed);
 
@@ -651,7 +651,7 @@ function renderTripsTable(data) {
     const start = (data.page - 1) * data.limit + 1;
     const end = Math.min(data.page * data.limit, data.total_count);
     document.getElementById('trips-showing').textContent = 
-        Showing ${start}-${end} of ${data.total_count} trips;
+        `Showing ${start}-${end} of ${data.total_count} trips`;
     
     document.getElementById('trips-page').textContent = data.page;
     document.getElementById('trips-total-pages').textContent = data.total_pages;
@@ -757,7 +757,7 @@ function formatDateTime(dateTimeStr) {
  * Log messages to console with prefix
  */
 function logMessage(context, message) {
-    console.log([${context}] ${message});
+    console.log(`[${context}] ${message}`);
 }
 
 // ========================================================================
