@@ -2,10 +2,6 @@
 
 A comprehensive full-stack data analytics platform for analyzing NYC taxi trip patterns, urban mobility insights, and transportation network efficiency using real data from January 2019.
 
-![Status](https://img.shields.io/badge/Status-Complete-brightgreen)
-![Python](https://img.shields.io/badge/Python-3.13.5-blue)
-![License](https://img.shields.io/badge/License-MIT-green)
-
 ---
 
 ## Project Overview
