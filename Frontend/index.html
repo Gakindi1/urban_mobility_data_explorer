@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NYC Taxi Urban Mobility Explorer</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Chart.js v4 for interactive charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    
+    <!-- Leaflet.js v1.9.4 for interactive map -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+</head>
+<body>
+    <!-- ====================================================================
+         HEADER SECTION
+         ==================================================================== -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo-section">
+                <h1 class="title">NYC Taxi Urban Mobility Explorer</h1>
+                <p class="subtitle">Real-time Analytics for January 2019 Yellow Taxi Data</p>
+            </div>
+            <div class="header-status">
+                <div id="data-status" class="status-badge">Loading...</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ====================================================================
+         MAIN CONTENT AREA
+         ==================================================================== -->
+    <main class="main-container">
+        
+        <!-- ================================================================
+             SUMMARY STATISTICS SECTION (4 STAT CARDS)
+             ================================================================ -->
+        <section class="stats-section">
+            <div class="stats-grid">
+                <!-- Stat Card 1: Total Trips -->
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-content">
+                        <h3 class="stat-label">Total Trips</h3>
+                        <p id="stat-total-trips" class="stat-value">0</p>
+                        <p class="stat-detail">from January 2019</p>
+                    </div>
+                </div>
+
+                <!-- Stat Card 2: Average Fare -->
+                <div class="stat-card">
+                    <div class="stat-icon">💰</div>
+                    <div class="stat-content">
+                        <h3 class="stat-label">Average Fare</h3>
+                        <p id="stat-avg-fare" class="stat-value">$0.00</p>
+                        <p class="stat-detail">per trip</p>
+                    </div>
+                </div>
+
+                <!-- Stat Card 3: Average Distance -->
+                <div class="stat-card">
+                    <div class="stat-icon">📍</div>
+                    <div class="stat-content">
+                        <h3 class="stat-label">Average Distance</h3>
+                        <p id="stat-avg-distance" class="stat-value">0 mi</p>
+                        <p class="stat-detail">per trip</p>
+                    </div>
+                </div>
+
+                <!-- Stat Card 4: Active Zones -->
+                <div class="stat-card">
+                    <div class="stat-icon">🗺️</div>
+                    <div class="stat-content">
+                        <h3 class="stat-label">Active Zones</h3>
+                        <p id="stat-unique-zones" class="stat-value">0</p>
+                        <p class="stat-detail">pickup locations</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================================================================
+             FILTERS SECTION
+             ================================================================ -->
+        <section class="filters-section">
+            <h2 class="section-title">Filters</h2>
+            <div class="filters-container">
+                <div class="filter-group">
+                    <label for="filter-borough">Borough:</label>
+                    <select id="filter-borough">
+                        <option value="">All Boroughs</option>
+                        <option value="Manhattan">Manhattan</option>
+                        <option value="Brooklyn">Brooklyn</option>
+                        <option value="Queens">Queens</option>
+                        <option value="Bronx">Bronx</option>
+                        <option value="Staten Island">Staten Island</option>
+                        <option value="EWR">Newark Airport</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="filter-hour">Hour of Day:</label>
+                    <select id="filter-hour">
+                        <option value="">All Hours</option>
+                        <option value="0">12 AM - 1 AM</option>
+                        <option value="1">1 AM - 2 AM</option>
+                        <option value="2">2 AM - 3 AM</option>
+                        <option value="3">3 AM - 4 AM</option>
+                        <option value="4">4 AM - 5 AM</option>
+                        <option value="5">5 AM - 6 AM</option>
+                        <option value="6">6 AM - 7 AM</option>
+                        <option value="7">7 AM - 8 AM</option>
+                        <option value="8">8 AM - 9 AM</option>
+                        <option value="9">9 AM - 10 AM</option>
+                        <option value="10">10 AM - 11 AM</option>
+                        <option value="11">11 AM - 12 PM</option>
+                        <option value="12">12 PM - 1 PM</option>
+                        <option value="13">1 PM - 2 PM</option>
+                        <option value="14">2 PM - 3 PM</option>
+                        <option value="15">3 PM - 4 PM</option>
+                        <option value="16">4 PM - 5 PM</option>
+                        <option value="17">5 PM - 6 PM</option>
+                        <option value="18">6 PM - 7 PM</option>
+                        <option value="19">7 PM - 8 PM</option>
+                        <option value="20">8 PM - 9 PM</option>
+                        <option value="21">9 PM - 10 PM</option>
+                        <option value="22">10 PM - 11 PM</option>
+                        <option value="23">11 PM - 12 AM</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="filter-min-fare">Min Fare ($):</label>
+                    <input type="number" id="filter-min-fare" placeholder="0" min="0" step="0.01">
+                </div>
+
+                <div class="filter-group">
+                    <label for="filter-max-fare">Max Fare ($):</label>
+                    <input type="number" id="filter-max-fare" placeholder="100" min="0" step="0.01">
+                </div>
+
+                <button id="filter-apply" class="btn-primary">Apply Filters</button>
+                <button id="filter-reset" class="btn-secondary">Reset</button>
+            </div>
+        </section>
+
+        <!-- ================================================================
+             CHARTS SECTION (6 CHARTS)
+             ================================================================ -->
+        <section class="charts-section">
+            <h2 class="section-title">Analytics</h2>
+            
+            <div class="charts-grid">
+                <!-- Chart 1: Trips by Hour -->
+                <div class="chart-card">
+                    <h3 class="chart-title">Trips by Hour of Day</h3>
+                    <div class="chart-container">
+                        <canvas id="chart-by-hour"></canvas>
+                    </div>
+                </div>
+
+                <!-- Chart 2: Trips by Borough -->
+                <div class="chart-card">
+                    <h3 class="chart-title">Trips by Borough</h3>
+                    <div class="chart-container">
+                        <canvas id="chart-by-borough"></canvas>
+                    </div>
+                </div>
+
+                <!-- Chart 3: Fare Distribution -->
+                <div class="chart-card">
+                    <h3 class="chart-title">Fare Amount Distribution</h3>
+                    <div class="chart-container">
+                        <canvas id="chart-fare-dist"></canvas>
+                    </div>
+                </div>
+
+                <!-- Chart 4: Speed Analysis -->
+                <div class="chart-card">
+                    <h3 class="chart-title">Average Speed by Hour</h3>
+                    <div class="chart-container">
+                        <canvas id="chart-speed"></canvas>
+                    </div>
+                </div>
+
+                <!-- Chart 5: Payment Types -->
+                <div class="chart-card">
+                    <h3 class="chart-title">Trips by Payment Type</h3>
+                    <div class="chart-container">
+                        <canvas id="chart-payment"></canvas>
+                    </div>
+                </div>
+
+                <!-- Chart 6: Top Pickup Zones -->
+                <div class="chart-card">
+                    <h3 class="chart-title">Top 10 Pickup Zones</h3>
+                    <div class="chart-container">
+                        <canvas id="chart-top-zones"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================================================================
+             MAP SECTION
+             ================================================================ -->
+        <section class="map-section">
+            <h2 class="section-title">Geographic Distribution</h2>
+            <div id="map-container" class="map-container">
+                <div id="map" class="map"></div>
+            </div>
+            <p class="map-info">Interactive map showing taxi zone boundaries. Colors represent pickup intensity.</p>
+        </section>
+
+        <!-- ================================================================
+             TRIPS TABLE SECTION
+             ================================================================ -->
+        <section class="table-section">
+            <h2 class="section-title">Trip Details</h2>
+            
+            <div class="table-controls">
+                <div class="trips-info">
+                    <span id="trips-showing">Showing 0 of 0 trips</span>
+                    <span class="separator">|</span>
+                    <span>Page <span id="trips-page">1</span> of <span id="trips-total-pages">1</span></span>
+                </div>
+                <div class="table-pagination">
+                    <button id="trips-prev-page" class="btn-small">← Previous</button>
+                    <button id="trips-next-page" class="btn-small">Next →</button>
+                </div>
+            </div>
+
+            <div class="table-wrapper">
+                <table id="trips-table" class="trips-table">
+                    <thead>
+                        <tr>
+                            <th>Trip ID</th>
+                            <th>Pickup Time</th>
+                            <th>Dropoff Time</th>
+                            <th>Passengers</th>
+                            <th>Distance (mi)</th>
+                            <th>Fare ($)</th>
+                            <th>Total ($)</th>
+                            <th>Pickup Zone</th>
+                            <th>Dropoff Zone</th>
+                        </tr>
+                    </thead>
+                    <tbody id="trips-tbody">
+                        <tr>
+                            <td colspan="9" class="loading-cell">
+                                <div class="spinner"></div>
+                                Loading trip data...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ====================================================================
+         FOOTER SECTION
+         ==================================================================== -->
+    <footer class="footer">
+        <p>&copy; 2024 NYC Taxi Urban Mobility Explorer | Data from January 2019 | Built with Flask & Chart.js</p>
+    </footer>
+
+    <!-- Load JavaScript -->
+    <script src="app.js"></script>
+</body>
+</html>
