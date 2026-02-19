@@ -8,7 +8,7 @@
 -Nkingi Gakindi Chris
 
 ### Deliverable Links
-- **Video Walkthrough:** 
+- **Video Walkthrough:** https://youtu.be/kJmFzN907Bc
 - **Team Participation Sheet:** https://docs.google.com/spreadsheets/d/1eZfpV1QD8FeglROUGGv9aPIeurazJHvZgS62AE-yCxs/edit?usp=sharing
 - **Technical Report (PDF):** Included in submission package
 - **GitHub Repository:** https://github.com/Gakindi1/urban_mobility_data_explorer.git
@@ -501,27 +501,6 @@ Light Theme (vs Dark): We went with a modern light theme because it improves acc
 Frontend Architecture: We used vanilla JavaScript without any framework. This decision was deliberate to demonstrate core web fundamentals without relying on abstraction layers.
 
 Custom MinHeap: Rather than using Python's built-in heapq library, we implemented the MinHeap algorithm from scratch. This shows algorithmic understanding and efficiently solves the "Top K" problem.
-
----
-
-## Submission Checklist
-
-Before submitting, ensure:
-
-- [ ] **GitHub Link:** Repository created with meaningful commit history
-- [ ] **Team Participation Sheet:** Completed with all member roles and contributions
-- [ ] **Video Walkthrough:** 5-minute video demonstrating all features (link in README)
-- [ ] **Technical Report:** 2-3 page PDF included with:
-  - [ ] Problem framing & data challenges
-  - [ ] System architecture diagram
-  - [ ] Custom algorithm explanation (MinHeap)
-  - [ ] 3 meaningful insights with visuals
-  - [ ] Reflection & future work suggestions
-- [ ] **Code Quality:** All endpoints tested and working
-- [ ] **README:** Complete and fully describes installation/usage
-- [ ] **Database:** Pre-populated and ready for testing
-- [ ] **No AI Code:** All code is original team work
-- [ ] **All Links Functional:** Video, sheets, and GitHub accessible
 
 ---
 
